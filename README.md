@@ -35,18 +35,24 @@ npm i @supabase/supabase-js pinia vue-router qrcode
 
 一括作成コマンド
 powerShell
+```
 mkdir src\lib, src\router, src\stores, src\views
-
+```
 Bash
+```
 mkdir -p src/lib src/router src/stores src/views
+```
 
 使うファイル丸ごと作成するコマンド
 powerShell
+```
 New-Item -ItemType File src\lib\supabase.js, src\router\index.js, src\stores\poll.js, src\views\MyRooms.vue, src\views\Start.vue, src\views\Home.vue, src\views\Poll.vue, src\views\Results.vue, src\views\AirsceneVote.vue
+```
 
 Bash
+```
 touch src/lib/supabase.js src/router/index.js src/stores/poll.js src/views/MyRooms.vue src/views/Start.vue src/views/Home.vue src/views/Poll.vue src/views/Results.vue src/views/AirsceneVote.vue
-
+```
 
 `router/index.js` で `MyRooms.vue` を参照するため、先に最小ファイルを作成:
 
