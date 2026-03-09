@@ -16,7 +16,7 @@ npm install
 npm i @supabase/supabase-js pinia vue-router qrcode
 ```
 
-
+Bashで新規作成する例
 ```bash
 npm create vite@latest vote-app -- --template vue
 cd vote-app
