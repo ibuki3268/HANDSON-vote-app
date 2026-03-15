@@ -62,3 +62,62 @@ touch src/lib/supabase.js src/router/index.js src/stores/poll.js src/views/MyRoo
   <div>My Rooms</div>
 </template>
 ```
+
+プロジェクトルートに `.env.local` を作成してコピペ:
+
+```env
+VITE_SUPABASE_URL=https://<your-project>.supabase.co
+VITE_SUPABASE_ANON_KEY=<anon-key>
+```
+
+依存関係が未インストールなら実行:
+
+```bash
+npm install
+```
+
+起動:
+
+```bash
+npm run dev
+```
+
+supabaseセットアップ
+
+- Supabaseプロジェクトを1つ作成
+- SQLエディタで下記を実行
+- `.env.local` の値（URL/ANON KEY）を用意
+
+```sql
+create extension if not exists "pgcrypto";
+
+create table if not exists polls (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  choices jsonb not null,
+  public_token text unique not null,
+  room_token text,
+  created_at timestamptz default now()
+);
+
+create table if not exists votes (
+  id uuid primary key default gen_random_uuid(),
+  poll_id uuid references polls(id) on delete cascade,
+  voter_token text,
+  choice text not null,
+  room_token text,
+  created_at timestamptz default now(),
+  updated_at timestamptz
+);
+
+create unique index if not exists votes_poll_voter_unique
+on votes (poll_id, voter_token);
+
+create table if not exists rooms (
+  id uuid primary key default gen_random_uuid(),
+  room_token text unique not null,
+  owner_token text not null,
+  name text,
+  created_at timestamptz default now()
+);
+```
